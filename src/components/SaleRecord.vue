@@ -1,5 +1,6 @@
 <template>
 
+  <v-container grid-list-xs>
 <v-card>
   <v-toolbar
       flat
@@ -8,19 +9,20 @@
     >
       <v-toolbar-title>  Registrar Venta</v-toolbar-title>
     </v-toolbar>
+    <v-container grid-list-xs>
+
+    </v-container>
     <v-card-text>
-      <v-container grid-list-xs>
-        <v-row>
-          <v-col cols="4">
+      <v-container>
+        <v-row >
+          <v-col cols="12" sm="12" xs="12" md="12" lg="4">
               <v-autocomplete
               label="Producto"
               :items=products
-
               item-title="name"
-
-
               v-model="producto_registro"
               return-object
+              clearable
             >
               <template v-slot:item="{ props, item }">
                 <v-list-item
@@ -33,7 +35,8 @@
               </template>
             </v-autocomplete>
           </v-col>
-          <v-col  cols="2">
+
+          <v-col cols="5" sm="4" xs="4" md="12" lg="4">
             <v-text-field
             label="Cantidad"
             :model-value="range[0]"
@@ -46,18 +49,18 @@
             ></v-text-field>
           </v-col>
 
-          <v-col  cols="3">
+          <v-col  cols="7" sm="12" xs="12" md="4" lg="4">
             <v-text-field
             :label="labelCantidadTotal"
             readonly
             v-model="venta.total"
-            :value = precioProductoTotal
+            :value=precioProductoTotal
             ref="venta.cantidad"
 
             > </v-text-field>
           </v-col>
 
-          <v-col  cols="3">
+          <v-col cols="12" sm="12" xs="12" md="4" lg="4">
             <v-btn color="success" :onclick="agregarProductoFactura">Agregar</v-btn>
           </v-col>
         </v-row>
@@ -68,7 +71,60 @@
 
 
 
+
+<v-table >
+  <thead>
+    <tr>
+      <th class="text-left">
+        Nombre
+      </th>
+      <th class="text-left">
+        Cant
+      </th>
+      <th class="text-left">
+        Precio U.
+      </th>
+      <th class="text-left">
+        Total
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      v-for="item in factura"
+      :key="item.producto_nombre"
+    >
+      <td>{{ item.producto_nombre }}</td>
+      <td>{{ item.cantidad }}</td>
+      <td>{{ item.producto_precio }}</td>
+      <td>
+        {{ item.total }}
+        <v-icon size="small" icon="mdi-pencil"></v-icon>
+        <v-icon size="small"  color="red" icon="mdi-delete"></v-icon>
+      </td>
+
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Total</td>
+      <td>{{totalFactura}}</td>
+    </tr>
+  </tbody>
+</v-table>
+<v-card-actions>
+
+  <v-btn
+    color="success"
+    prepend-icon="mdi-archive"
+    variant="tonal"
+    class="mx-auto">Registrar</v-btn>
+</v-card-actions>
+
 </v-card>
+
+
+</v-container>
 
 
 
@@ -99,7 +155,7 @@
         precio: 2000
       },
     ],
-    producto_registro: {},
+    producto_registro: '',
     // producto_registro:{
     //   id:'',
     //   nombre:'',
@@ -117,7 +173,22 @@
     factura : [],
 
     range: [1, 100],
-    Cantidad: '2123'
+    Cantidad: '',
+
+    itemsPerPage: 10,
+    headers: [
+          {
+            title: 'Nombre',
+            align: 'start',
+            sortable: false,
+            key: 'producto_nombre',
+          },
+          { title: 'Cantidad', align: 'end', key: 'cantidad' },
+          { title: 'Precio Unidad', align: 'end', key: 'producto_precio' },
+          { title: 'Total', align: 'end', key: 'total' },
+
+    ],
+    // totalFactura:0
 
   }),
 
@@ -157,7 +228,10 @@
   },
   computed: {
     labelCantidadTotal: function(){
-      return "Precio unidad: $"+this.producto_registro.precio
+      if(this.producto_registro.precio)
+        return "Precio unidad: $"+this.producto_registro.precio
+      else
+        return ""
     },
     // a computed getter
     precioProductoTotal: function () {
@@ -174,6 +248,15 @@
 
 
       return total
+    },
+
+    totalFactura:function () {
+      let total = 0;
+      this.factura.forEach(element => {
+        total += element.total
+      })
+      return total
+
     }
   }
 };

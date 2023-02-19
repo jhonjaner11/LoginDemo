@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar color="primary" app dark>
+    <v-app-bar density="compact"  :elevation="13" color="brown" app dark>
       <v-app-bar-nav-icon
         variant="text"
         @click.stop="drawer = !drawer"
@@ -10,7 +10,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn variant="text" icon="mdi-dots-vertical"></v-btn>
+      <v-btn variant="text" icon="mdi-export" to='login'></v-btn>
     </v-app-bar>
 
     <v-navigation-drawer v-model="drawer">
@@ -55,19 +55,21 @@
         to: "/stock",
       },
       {
-        title: "About",
-        value: "bar",
-        to: "/about",
+        title: "Ventas",
+        value: "sales",
+        to: "/sales",
       },
-      {
-        title: "Login",
-        value: "login",
-        to: "/login",
-      },
+
+
       {
         title: "Usuarios",
         value: "users",
         to: "/users",
+      },
+      {
+        title: "About",
+        value: "bar",
+        to: "/about",
       },
     ],
   }),
