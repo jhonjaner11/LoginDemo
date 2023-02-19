@@ -1,7 +1,9 @@
 <template>
-  <HelloWorld />
+  <SaleRecord />
+
 </template>
 
 <script setup>
-  import HelloWorld from '@/components/HelloWorld.vue'
+  import SaleRecord from '@/components/SaleRecord.vue'
+
 </script>

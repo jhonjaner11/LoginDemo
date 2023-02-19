@@ -55,18 +55,19 @@
         to: "/stock",
       },
       {
-        title: "Bar",
+        title: "About",
         value: "bar",
         to: "/about",
       },
       {
         title: "Login",
-        value: "fizz",
+        value: "login",
         to: "/login",
       },
       {
-        title: "Buzz",
-        value: "buzz",
+        title: "Usuarios",
+        value: "users",
+        to: "/users",
       },
     ],
   }),
