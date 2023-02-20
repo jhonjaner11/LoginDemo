@@ -1,6 +1,7 @@
 {
   "name": "LoginDemo",
   "version": "0.0.0",
+  "homepage": "/LoginDemo/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

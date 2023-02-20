@@ -1,1 +1,0 @@
-import{g as o,p as a}from"./index.c2e71e26.js";function p(t){const e=o("useRender");e.render=t}const g=(t,e)=>{const r=t.__vccOpts||t;for(const[s,n]of e)r[s]=n;return r},u=a({tag:{type:String,default:"div"}},"tag");export{g as _,u as m,p as u};
