@@ -1,25 +1,27 @@
 <template>
 
+<v-container grid-list-xs>
 
 
-<v-card>
-  <v-card-title primary-title>
-    Ventas
-  </v-card-title>
-
-
+  <v-card>
+    <v-card-title primary-title>
+      Factura N {{numero_factura }}
+    </v-card-title>
 
     <v-table density="compact">
       <thead>
-        <tr  >
+        <tr  to="login">
           <th class="text-left">
             Id
           </th>
           <th class="text-left">
-            Fecha
+            Nombre
           </th>
           <th class="text-left">
-            Usuario
+            Cantidad
+          </th>
+          <th class="text-left">
+            Costo Unidad
           </th>
           <th class="text-left">
             Total
@@ -27,14 +29,16 @@
         </tr>
       </thead>
       <tbody>
+        <a href=""></a>
         <tr
           v-for="item in ventas"
           :key="item.id"
-          v-on:click="venta_detalle(item.id)"
+
         >
           <td>{{ item.id }}</td>
-          <td>{{ item.fecha }}</td>
-          <td>{{ item.usuario }}</td>
+          <td>{{ item.nombre }}</td>
+          <td>{{ item.cantidad }}</td>
+          <td>{{ item.costo }}</td>
           <td>{{ item.total }}</td>
         </tr>
       </tbody>
@@ -46,6 +50,7 @@
   </v-card>
 
 
+</v-container>
 </template>
 <script >
   // import DefaultView from './View.vue';
@@ -53,25 +58,24 @@
   data: () => ({
     drawer: false,
     group: null,
+    numero_factura : 1,
+    arepe:'login',
     ventas: [
           {
-            id: '1',
-            fecha: '19-02-2023 12:23',
-            usuario: 'Allison',
-            total: 12000
+            id: 1,
+            nombre: 'Arepa',
+            cantidad: 1,
+            costo: 1500,
+            total: 1500
           },
           {
-            id: '2',
-            fecha: '19-02-2023 12:25',
-            usuario: 'Allison',
-            total: 2000
+            id: 2,
+            nombre: 'Empanada de pollo',
+            cantidad: 5,
+            costo: 2000,
+            total: 10000
           },
-          {
-            id: '3',
-            fecha: '19-02-2023 14:23',
-            usuario: 'Azdy',
-            total: 4300
-          },
+
 
         ],
 
@@ -84,10 +88,7 @@
     },
   },
   methods:{
-    venta_detalle(item_id){
-      console.log("item" + item_id);
-      this.$router.push({ path: '/sale-detail', replace: true })
-    },
+
     submit(){
       console.log(this.venta)
     },

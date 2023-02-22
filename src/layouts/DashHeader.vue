@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar density="compact"  :elevation="13" color="brown" app dark>
+    <v-app-bar density="compact"  :elevation="13" color="primary" app dark>
       <v-app-bar-nav-icon
         variant="text"
         @click.stop="drawer = !drawer"
@@ -59,6 +59,11 @@
         value: "sales",
         to: "/sales",
       },
+      {
+        title: "Reportes",
+        value: "foo",
+        to: "/reports",
+      },
 
 
       {
@@ -66,6 +71,8 @@
         value: "users",
         to: "/users",
       },
+
+
       {
         title: "About",
         value: "bar",

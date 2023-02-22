@@ -1,21 +1,20 @@
 <template>
 
-  <v-container grid-list-xs>
+  <v-container>
 <v-card>
   <v-toolbar
       flat
-      color="blue-grey"
-      dark
+      color="indigo-darken-4"
+      dark density="compact"
+      title="Registrar Venta"
     >
-      <v-toolbar-title>  Registrar Venta</v-toolbar-title>
-    </v-toolbar>
-    <v-container grid-list-xs>
 
-    </v-container>
-    <v-card-text>
+    </v-toolbar>
+
+
       <v-container>
-        <v-row >
-          <v-col cols="12" sm="12" xs="12" md="12" lg="4">
+        <v-row no-gutters>
+          <v-col cols="12" sm="12" xs="12" md="4" lg="4">
               <v-autocomplete
               label="Producto"
               :items=products
@@ -67,7 +66,7 @@
       </v-container>
 
 
-    </v-card-text>
+
 
 
 

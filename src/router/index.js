@@ -4,7 +4,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
   {
     path: '/',
-    component: () => import('@/layouts/default/Default.vue'),
+    component: () => import('@/layouts/DashHeader.vue'),
     children: [
       {
         path: '',
@@ -46,6 +46,25 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "home" */ '@/views/SaleView.vue'),
+      },
+      {
+        //ventas
+        path: 'sale-detail',
+        name: 'VentaDetalle',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import(/* webpackChunkName: "home" */ '@/components/SaleDetail.vue'),
+      },
+
+      {
+        //ventas
+        path: 'reports',
+        name: 'Reportes',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import(/* webpackChunkName: "home" */ '@/views/ReportsView.vue'),
       },
     ]
   },

@@ -1,5 +1,8 @@
 <template>
-  <ProductsList/>
+  <v-container >
+    <ProductsList/>
+  </v-container>
+
 </template>
 
 <script >
