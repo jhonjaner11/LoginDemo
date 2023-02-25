@@ -44,11 +44,7 @@
         cargo: "Jefe",
         to: "/",
       },
-      {
-        name: "Allison",
-        cargo: "Cajero",
-        to: "/",
-      },
+
       {
         name: "Azdy",
         cargo: "Cajero",
