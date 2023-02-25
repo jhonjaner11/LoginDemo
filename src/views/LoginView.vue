@@ -1,25 +1,37 @@
-<template>
-  <v-container fluid fill-height  id="content" >
+<template >
+
+
+  <v-container fluid fill-height id="appa"  v-bind:style="{ backgroundColor: color}">
     <v-row align-center justify-center>
       <v-col>
-        <v-card width="400" class="mx-auto" height="300">
+        <v-card   max-width="400" class="mx-auto" >
+          <v-img
+          class="align-end text-white"
+          height="200"
+          src="@/assets/background.jpg"
+          cover
+          />
           <v-card-title primary-title>
             Login
           </v-card-title>
           <v-card-text>
            <v-text-field
-            name="name"
-            label="label"
-            id="id"
+            name="username"
+            label="Usuario"
+            id="username"
+            v-model="username"
            ></v-text-field>
            <v-text-field
-           name="name"
-           label="label"
-           id="id"
+           name="password"
+           label="Contraseña"
+           id="password"
+
+           v-model="password"
+
           ></v-text-field>
           </v-card-text>
           <v-card-actions>
-            <v-btn color="success" to="/">Loggin</v-btn>
+            <v-btn color="success" @click="login">Loggin</v-btn>
             <v-btn color="red">Logout</v-btn>
           </v-card-actions>
 
@@ -28,11 +40,33 @@
     </v-row>
 
   </v-container>
+
+
 </template>
 
-<script setup>
 
+<script>
+
+export default {
+  name: "appa",
+  data() {
+    return {
+      back : "background-image: url('./public/background.jpg');",
+      color:'#000000',
+      username: '',
+      password:'',
+    }
+  },
+  methods:{
+    login(){
+      this.$store.commit('login', this.username);
+
+    }
+  }
+}
 </script>
+
+
 <style>
 /* CUSTOM STYLE */
 #content {
@@ -42,37 +76,27 @@
   transform: translate(-50%, -50%);
   border: 0px solid lightgray;
   padding: 4rem 4rem;
-  border-radius: 5px;
-  background: white;
+
+
+
 }
 .background {
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  background: rgb(250, 250, 250);
+  height: 100%;
+  margin: 0;
+  padding: 0;
+
 }
-.navbar {
-  background: #fafafa;
-  position: absolute;
-  top: 0;
-  width: 100vw;
-  height: 70px;
-  box-shadow: 6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
-    22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
-    100px 100px 80px rgba(0, 0, 0, 0.07);
-}
-.nav {
-  width: 80%;
-  min-width: 400px;
-  margin: auto;
+
+
+
+
+#appa {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  background: #fafafa;
+  height: 100%;
+
 }
-#name_project {
-  font-weight: 700;
-}
+
+
 .container {
   width: 400px;
   max-width: 95%;
@@ -89,45 +113,5 @@
   margin-top: 6px;
   height: 38px !important;
 }
-/* From uiverse.io */
-.btn-pers {
-  position: relative;
-  left: 50%;
-  padding: 1em 2.5em;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 2.5px;
-  font-weight: 700;
-  color: #000;
-  background-color: #fff;
-  border: none;
-  border-radius: 45px;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease 0s;
-  cursor: pointer;
-  outline: none;
-  transform: translateX(-50%);
-}
-.btn-pers:hover {
-  background-color: #198754;
-  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
-  color: #fff;
-  transform: translate(-50%, -7px);
-}
-.btn-pers:active {
-  transform: translate(-50%, -1px);
-}
-/*  */
-.alternative-option {
-  text-align: center;
-}
-.alternative-option > span {
-  color: #0d6efd;
-  cursor: pointer;
-}
-#sign_out {
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-}
+
 </style>
