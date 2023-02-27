@@ -1,15 +1,16 @@
 <template >
 
+<div app id="a">
+  <div id="b">
+    <div id="content">
 
-  <v-container fluid fill-height id="appa"  v-bind:style="{ backgroundColor: color}">
-    <v-row align-center justify-center>
-      <v-col>
-        <v-card   max-width="400" class="mx-auto" >
+        <v-card class="grey  align-center justify-center"
+        color="purple-darken-3" dark >
           <v-img
           class="align-end text-white"
-          height="200"
+
           src="@/assets/background.jpg"
-          cover
+
           />
           <v-card-title primary-title>
             Login
@@ -17,14 +18,19 @@
           <v-card-text>
            <v-text-field
             name="username"
+            prepend-icon="mdi-account"
             label="Usuario"
             id="username"
             v-model="username"
            ></v-text-field>
            <v-text-field
+           :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+           :rules="[rules.required, rules.min]"
+           :type="show1 ? 'text' : 'password'"
            name="password"
            label="Contraseña"
            id="password"
+           @click:append="show1 = !show1"
 
            v-model="password"
 
@@ -36,10 +42,11 @@
           </v-card-actions>
 
         </v-card>
-      </v-col>
-    </v-row>
 
-  </v-container>
+      </div>
+    </div>
+  </div>
+
 
 
 </template>
@@ -55,6 +62,14 @@ export default {
       color:'#000000',
       username: '',
       password:'',
+      show1: false,
+        show2: true,
+
+        rules: {
+          required: value => !!value || 'Required.',
+          min: v => v.length >= 8 || 'Min 8 characters',
+          emailMatch: () => (`The email and password you entered don't match`),
+        },
     }
   },
   methods:{
@@ -67,10 +82,10 @@ export default {
 </script>
 
 
-<style>
-/* CUSTOM STYLE */
+<style >
+/* CUSTOM STYLE
 #content {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -80,12 +95,7 @@ export default {
 
 
 }
-.background {
-  height: 100%;
-  margin: 0;
-  padding: 0;
 
-}
 
 
 
@@ -112,6 +122,39 @@ export default {
 .input > input {
   margin-top: 6px;
   height: 38px !important;
+}
+*/
+
+
+html, body, #a {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+
+}
+
+#a {
+  display: table;
+  vertical-align: bottom;
+}
+
+#b {
+  display: table-cell;
+  margin: 0;
+  padding: 0;
+
+  text-align: center;
+  vertical-align: "%75";
+
+}
+
+#content {
+
+
+  margin: auto;
+
+
 }
 
 </style>

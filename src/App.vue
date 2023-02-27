@@ -1,15 +1,30 @@
 <template>
+<v-container fluid fill-height align="center">
 
-<template  v-if="!$store.state.username">
-  <div  v-bind:style="{ backgroundColor: color}">
-    <login-view />
-  </div>
-</template>
-<template v-else>
-  <div>
-    <router-view />
-  </div>
-</template>
+  <v-row
+    id="a"
+  >
+    <v-col
+    id="b"
+    align-self="center"
+    v-if="!$store.state.username"
+    >
+      <v-sheet  id="content" class="pa-2 ma-2">
+        <login-view />
+
+      </v-sheet>
+    </v-col>
+
+
+
+  <v-col v-else>
+
+      <router-view />
+
+  </v-col>
+</v-row>
+</v-container>
+
 
 </template>
 
@@ -21,7 +36,7 @@ import LoginView from './views/LoginView.vue';
 export default {
   data() {
     return {
-      color: '#00FD12'
+      color: '#00FF11'
     }
   },
   components: {
@@ -44,7 +59,5 @@ export default {
 
 <style>
 /* CUSTOM STYLE */
-
-
 
 </style>

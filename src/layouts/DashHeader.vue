@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar density="compact"  :elevation="13" color="primary" app dark>
+    <v-app-bar density="compact"  :elevation="13" color="deep-purple-darken-3" app dark>
       <v-app-bar-nav-icon
         variant="text"
         @click.stop="drawer = !drawer"

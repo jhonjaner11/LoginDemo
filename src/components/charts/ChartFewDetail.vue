@@ -29,13 +29,13 @@ export default {
   data() {
     return {
       data: {
-        labels: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
+        labels: ['Lunes', 'Martes', 'Miercoles', 'Jueves'],
         datasets: [{
           data: [76000, 59000, 80000,45000,120000,60000,45000],
           label: 'Ventas Semanales',
           fill: false,
           borderColor: 'rgb(75, 192, 192)',
-          tension: 0.4
+          tension: 0.1
         }]
       },
       options: {
