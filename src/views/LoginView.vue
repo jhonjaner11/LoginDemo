@@ -4,8 +4,12 @@
   <div id="b">
     <div id="content">
 
-        <v-card class="grey  align-center justify-center"
-        color="purple-darken-3" dark >
+        <v-card
+        class="align-center justify-center mx-auto"
+        color="purple-darken-3"
+        max-width="450"
+
+        dark >
           <v-img
           class="align-end text-white"
 
@@ -25,6 +29,7 @@
            ></v-text-field>
            <v-text-field
            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+           prepend-icon="mdi-lock"
            :rules="[rules.required, rules.min]"
            :type="show1 ? 'text' : 'password'"
            name="password"
@@ -36,10 +41,15 @@
 
           ></v-text-field>
           </v-card-text>
-          <v-card-actions>
-            <v-btn color="success" @click="login">Loggin</v-btn>
-            <v-btn color="red">Logout</v-btn>
+          <v-card-actions >
+            <v-spacer></v-spacer>
+
+            <v-btn rounded color="white" @click="login">Ingresar
+            <v-icon>mdi-coffee-to-go</v-icon>
+            </v-btn>
+            <!-- <v-btn color="red">Logout</v-btn> -->
           </v-card-actions>
+
 
         </v-card>
 
@@ -77,7 +87,8 @@ export default {
       this.$store.commit('login', this.username);
 
     }
-  }
+  },
+
 }
 </script>
 

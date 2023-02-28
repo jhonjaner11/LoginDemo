@@ -6,7 +6,7 @@
         @click.stop="drawer = !drawer"
       ></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Mascafe</v-toolbar-title>
+      <v-toolbar-title>Mascafe    {{$store.state.username}}</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -50,9 +50,19 @@
         to: "/",
       },
       {
-        title: "Stock",
+        title: "Registrar Venta",
+        value: "sales",
+        to: "/sale-record",
+      },
+      {
+        title: "Productos",
         value: "foo",
-        to: "/stock",
+        to: "/product-list",
+      },
+      {
+        title: "Provedores",
+        value: "foo",
+        to: "/provedor-list",
       },
       {
         title: "Ventas",

@@ -15,8 +15,8 @@ const routes = [
         component: () => import(/* webpackChunkName: "home" */ '@/views/HomeView.vue'),
       },
       {
-        path: 'stock',
-        name: 'Stock',
+        path: 'product-list',
+        name: 'ListaProductos',
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
@@ -48,13 +48,33 @@ const routes = [
         component: () => import(/* webpackChunkName: "home" */ '@/views/SaleView.vue'),
       },
       {
-        //ventas
+        //ventas detalle
         path: 'sale-detail',
         name: 'VentaDetalle',
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "home" */ '@/components/SaleDetail.vue'),
+      },
+
+      {
+        //ventas
+        path: 'sale-record',
+        name: 'RegistrarVenta',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import(/* webpackChunkName: "home" */ '@/components/SaleRecord.vue'),
+      },
+
+      {
+        //provedores
+        path: 'provedor-list',
+        name: 'ProvedorLista',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import(/* webpackChunkName: "home" */ '@/views/ProvedorView.vue'),
       },
 
       {

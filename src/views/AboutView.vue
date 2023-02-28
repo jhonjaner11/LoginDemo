@@ -1,8 +1,12 @@
 <template>
   <v-container fluid fill-height  id="content" >
     <v-row align-center justify-center>
-      <v-col>
-       Abput
+      <v-col >
+       <v-card title="En construccion..." color="purple darken1">
+        <v-spacer></v-spacer>
+        <v-subheader left>Hecho Por John.</v-subheader>
+
+       </v-card>
       </v-col>
     </v-row>
 

@@ -1,6 +1,8 @@
 <template>
   <!-- <Bar :data="data" :options="options" /> -->
-  <Line :data="data" :options="options" />
+  <Line :data="data" :options="options" >
+
+  </Line>
 </template>
 
 <script lang="ts">
