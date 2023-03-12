@@ -23,6 +23,11 @@ const routes = [
         component: () => import(/* webpackChunkName: "home" */ '@/views/StockView.vue'),
       },
       {
+        path: 'product-new',
+        name: 'CrearProductos',
+        component: () => import('@/components/NewProduct.vue'),
+      },
+      {
         path: 'about',
         name: 'About',
         // route level code-splitting

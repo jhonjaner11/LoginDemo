@@ -32,15 +32,11 @@
           :key="item.id"
           v-on:click="venta_detalle(item.id)"
         >
-
           <td>{{ item.id }}</td>
-
           <td>{{ item.fecha }}</td>
           <td>{{ item.user }}</td>
           <td>$ {{ item.total }}</td>
-
-
-      </tr>
+        </tr>
       </tbody>
     </v-table>
 
@@ -93,11 +89,11 @@
     },
     venta_detalle(item_id){
       console.log("item: " + item_id);
-
       this.$router.push({
+        path: '/sale-detail',
         name: 'VentaDetalle',
-
-        query:{item:item_id}})
+        params:{factura_id:2},
+        replace: true })
     },
     submit(){
       console.log(this.venta)

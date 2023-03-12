@@ -70,7 +70,8 @@
       </v-col>
     </v-row>
 
-
+    <v-btn color="success" variant="flat"
+     dark  size="small" to="/product-new" >NUEVO</v-btn>
 
   </v-toolbar>
 
@@ -105,14 +106,15 @@
             Producto
           </th>
           <th class="text-left">
-            Valor
-          </th>
-          <th class="text-left">
-            Stock
-          </th>
-          <th class="text-left">
             Provedor
           </th>
+
+          <th class="text-left">
+            Valor Venta
+          </th>
+
+
+
         </tr>
       </thead>
       <tbody>
@@ -122,9 +124,9 @@
         >
           <td>{{ item.id }}</td>
           <td>{{ item.nombre }}</td>
-          <td>{{ item.precio }}</td>
-          <td>{{ item.stock }}</td>
           <td>{{ item.provedor }}</td>
+          <td>${{ item.precio_venta }}</td>
+
         </tr>
       </tbody>
     </v-table>
@@ -135,6 +137,7 @@
 
 </template>
 <script >
+  //import axios from 'axios';
   // import DefaultView from './View.vue';
   export default {
   data: () => ({
@@ -143,11 +146,12 @@
     group: null,
 
     categorias: ["Bebidas", "Paquetes", "Alimentos", "Dulces", "Cigarros"],
-    productos: [
+    productos_old: [
       {id:1, nombre: "Empanadas", precio: "2700", stock:20 , categoria:["Alimentos"],provedor:'Doña Gloria'},
       {id:2, nombre: "Papas Limon", precio: "2700", stock:20, categoria:["Paquetes"],provedor:'Super' },
       {id:3, nombre: "Coca Cola pet", precio: "1500", stock:20, categoria:["Bebidas"],provedor:'Postobon'}
     ],
+    productos: []
 
 
 
@@ -159,6 +163,30 @@
     },
   },
   methods:{
+
+    getProducts(){
+      let that =this;
+
+      this.axios.get('/producto/list')
+        .then(function (response) {
+          // handle success
+          response.data.forEach(element => {
+            that.productos.push(element)
+            console.log(element);
+          });
+
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+        .finally(function () {
+          // always executed
+        });
+
+      console.log("Obteniendo");
+    },
+
     saveProduct(){
       this.dialog_product = false
       console.log("guardado");
@@ -190,6 +218,13 @@
 
       console.log(this.factura);
     }
+  },
+
+  beforeMount() {
+    console.log('hola');
+    this.getProducts();
+
+    // <div id="app" data-fizz="buzz"></div>
   },
   computed: {
 

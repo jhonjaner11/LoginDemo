@@ -5,7 +5,7 @@
 
   <v-card>
     <v-card-title primary-title>
-      Factura N {{numero_factura }}
+      Factura N {{parametro}}
     </v-card-title>
 
     <v-table density="compact">
@@ -36,10 +36,10 @@
 
         >
           <td>{{ item.id }}</td>
-          <td>{{ item.nombre }}</td>
+          <td>{{ item.producto }}</td>
           <td>{{ item.cantidad }}</td>
-          <td>{{ item.costo }}</td>
-          <td>{{ item.total }}</td>
+          <td>{{ item.precio_unidad }}</td>
+          <td>{{ item.precio_final }}</td>
         </tr>
       </tbody>
     </v-table>
@@ -55,29 +55,14 @@
 <script >
   // import DefaultView from './View.vue';
   export default {
+  name: 'VentaDetalle',
+  props: ['factura_id'],
   data: () => ({
     drawer: false,
     group: null,
-    numero_factura : 1,
     arepe:'login',
-    ventas: [
-          {
-            id: 1,
-            nombre: 'Arepa',
-            cantidad: 1,
-            costo: 1500,
-            total: 1500
-          },
-          {
-            id: 2,
-            nombre: 'Empanada de pollo',
-            cantidad: 5,
-            costo: 2000,
-            total: 10000
-          },
-
-
-        ],
+    ventas: [],
+    //factura_id:''
 
 
   }),
@@ -87,7 +72,34 @@
       this.drawer = false;
     },
   },
+
+  mounted() {
+
+    this.getVentaDetail(this.parametro);
+  },
+
   methods:{
+    getVentaDetail(factura_id){
+      let that =this;
+      console.log("factura"+ factura_id);
+      this.axios.get('/ventas/list/'+factura_id)
+        .then(function (response) {
+          // handle success
+          response.data.forEach(element => {
+            that.ventas.push(element)
+          });
+
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+        .finally(function () {
+          // always executed
+        });
+
+      console.log("Obteniendo");
+    },
 
     submit(){
       console.log(this.venta)
@@ -118,11 +130,14 @@
     }
   },
   computed: {
+    parametro(){
+      return this.$route.query.item
+    },
 
     totalVentas:function () {
       let total = 0;
       this.ventas.forEach(element => {
-        total += element.total
+        total += element.precio_final
       })
       return total
 

@@ -102,29 +102,38 @@
             Id
           </th>
           <th class="text-left">
-            Producto
+            Nombre
           </th>
           <th class="text-left">
-            Valor
+            Tipo ID
           </th>
           <th class="text-left">
-            Stock
+            Identificacion
           </th>
           <th class="text-left">
-            Provedor
+            Telefono
+          </th>
+          <th class="text-left">
+            Direccion
+          </th>
+          <th class="text-left">
+            Correo
           </th>
         </tr>
       </thead>
       <tbody>
         <tr
-          v-for="item in productos"
+          v-for="item in provedores"
           :key="item.id"
         >
           <td>{{ item.id }}</td>
           <td>{{ item.nombre }}</td>
-          <td>{{ item.precio }}</td>
-          <td>{{ item.stock }}</td>
-          <td>{{ item.provedor }}</td>
+          <td>{{ item.tipo_id }}</td>
+          <td>{{ item.provedor_id }}</td>
+
+          <td>{{ item.telefono }}</td>
+          <td>{{ item.direccion }}</td>
+          <td>{{ item.correo }}</td>
         </tr>
       </tbody>
     </v-table>
@@ -143,11 +152,7 @@
     group: null,
 
     categorias: ["Bebidas", "Paquetes", "Alimentos", "Dulces", "Cigarros"],
-    productos: [
-      {id:1, nombre: "Empanadas", precio: "2700", stock:20 , categoria:["Alimentos"],provedor:'Doña Gloria'},
-      {id:2, nombre: "Papas Limon", precio: "2700", stock:20, categoria:["Paquetes"],provedor:'Super' },
-      {id:3, nombre: "Coca Cola pet", precio: "1500", stock:20, categoria:["Bebidas"],provedor:'Postobon'}
-    ],
+    provedores: [],
 
 
 
@@ -159,6 +164,27 @@
     },
   },
   methods:{
+    getProvedores(){
+      let that =this;
+
+      this.axios.get('/provedor/list')
+        .then(function (response) {
+          // handle success
+          response.data.forEach(element => {
+            that.provedores.push(element)
+          });
+
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+        .finally(function () {
+          // always executed
+        });
+
+      console.log("Obteniendo");
+    },
     saveProduct(){
       this.dialog_product = false
       console.log("guardado");
@@ -201,6 +227,13 @@
     //   return total
 
     // }
-  }
+  },
+
+  beforeMount() {
+    console.log('hola');
+    this.getProvedores();
+
+    // <div id="app" data-fizz="buzz"></div>
+  },
 };
 </script>

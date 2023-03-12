@@ -19,18 +19,11 @@
                 cols="12"
                 @click="verDetalle"
               >
-                $ 25.000
+                {{ ventas_diaria }}
               </v-col>
-
-              <!-- <v-col cols="6" class="text-right">
-                <v-icon
-                  color="error"
-                  icon="mdi-weather-hurricane"
-                  size="88"
-                ></v-icon>
-              </v-col> -->
             </v-row>
           </v-card-text>
+
 
           <div class="d-flex py-3 justify-space-between">
             <v-list-item
@@ -87,22 +80,107 @@
           </v-card-actions>
         </v-card>
 
+
       </v-col>
 
-      <v-col cols="12" md="6"   >
-        <v-card dark color="green-lighten-2"  class="ma-1 mx-auto">
-          <v-card-title text-color="white" class="text-color white" >
-            Reporte Semanal
-          </v-card-title>
-        <ChartFewDetail />
+      <v-col no-gutters cols="12" md="3"  class="">
+
+        <v-card
+          color="indigo-darken-1"
+          class="ma-1"
+        >
+          <v-card-item title="Ventas Semanal">
+
+          </v-card-item>
+
+          <v-card-text class="py-0">
+            <v-row align="center" no-gutters>
+              <v-col
+                class="text-h4"
+                cols="12"
+                @click="verDetalle"
+              >
+                {{ ventas_semanal }}
+              </v-col>
+            </v-row>
+          </v-card-text>
+
+
+          <div class="d-flex py-3 justify-space-between">
+            <v-list-item
+              density="compact"
+              prepend-icon="mdi-weather-windy"
+            >
+              <v-list-item-subtitle>123 km/h</v-list-item-subtitle>
+            </v-list-item>
+
+            <v-list-item
+              density="compact"
+              prepend-icon="mdi-weather-pouring"
+            >
+              <v-list-item-subtitle>48%</v-list-item-subtitle>
+            </v-list-item>
+          </div>
+
+
         </v-card>
+
+
       </v-col>
+
+
+
+      <v-col no-gutters cols="12" md="3"  class="">
+
+        <v-card
+          color="indigo-darken-4"
+          class="ma-1"
+        >
+          <v-card-item title="Ventas Mensual">
+
+          </v-card-item>
+
+          <v-card-text class="py-0">
+            <v-row align="center" no-gutters>
+              <v-col
+                class="text-h4"
+                cols="12"
+                @click="verDetalle"
+              >
+                {{ ventas_mensual }}
+              </v-col>
+            </v-row>
+          </v-card-text>
+
+
+          <div class="d-flex py-3 justify-space-between">
+            <v-list-item
+              density="compact"
+              prepend-icon="mdi-weather-windy"
+            >
+              <v-list-item-subtitle>123 km/h</v-list-item-subtitle>
+            </v-list-item>
+
+            <v-list-item
+              density="compact"
+              prepend-icon="mdi-weather-pouring"
+            >
+              <v-list-item-subtitle>48%</v-list-item-subtitle>
+            </v-list-item>
+          </div>
+
+
+        </v-card>
+
+
+      </v-col>
+
+
+
+
+
 
     </v-row>
-
-  <v-row >
-
-  </v-row>
 
   <v-row  class="mx-auto" align-content="center" align="center" justify="center">
     <v-col cols="6" align-content="center" align="center"   >
@@ -144,6 +222,15 @@
 
 
   </v-row>
+
+  <v-col cols="12" md="6"   >
+    <v-card dark color="green-lighten-2"  class="ma-1 mx-auto">
+      <v-card-title text-color="white" class="text-color white" >
+        Reporte Semanal
+      </v-card-title>
+    <ChartFewDetail />
+    </v-card>
+  </v-col>
 </v-container>
 
 
@@ -167,9 +254,49 @@ export default {
       ],
 
       meses : ["January","February","March","April","May","June","July","August","September","October","November","December"],
+      ventas_diaria: '',
+      ventas_semanal: '',
+      ventas_mensual: '',
+    }
+  },
 
+  beforeMount() {
 
+    this.getInformeGeneral();
+  },
+  methods: {
 
+    valorFormateado(numero) {
+      return numero.toLocaleString("es-CO", {
+        style: "currency",
+        currency: "COP",
+      });
+    },
+    getInformeGeneral(){
+      let that =this;
+
+      this.axios.get('/ventas/informe/')
+        .then(function (response) {
+          // handle success
+          console.log(response.data);
+          that.ventas_diaria= that.valorFormateado(response.data.diario[0])
+          that.ventas_semanal= that.valorFormateado(response.data.semanal[0])
+          that.ventas_mensual= that.valorFormateado(response.data.mensual[0])
+
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+        .finally(function () {
+          // always executed
+        });
+
+      console.log("Obteniendo");
+    },
+
+    verDetalle(){
+      router.push("/sales")
     }
   },
 
@@ -187,16 +314,11 @@ export default {
 
   },
 
-
-  methods:{
-    verDetalle(){
-      console.log("hola");
-      router.push("/sales")
-    }
-  },
   components: {
     ChartFewDetail
   },
+
+
 };
 
 

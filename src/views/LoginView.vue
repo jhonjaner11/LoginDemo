@@ -8,7 +8,7 @@
         class="align-center justify-center mx-auto"
         color="purple-darken-3"
         max-width="450"
-
+        elevation="24"
         dark >
           <v-img
           class="align-end text-white"
@@ -63,7 +63,7 @@
 
 
 <script>
-
+import axios from 'axios';
 export default {
   name: "appa",
   data() {
@@ -84,6 +84,24 @@ export default {
   },
   methods:{
     login(){
+      let data = {
+        username : this.username,
+        password: this.password,
+      }
+      console.log("loggeando");
+      axios.post('http://localhost:8000/api-auth/login/', data)
+        .then(function (response) {
+          // handle success
+          console.log(response);
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+        .finally(function () {
+          // always executed
+        });
+      // http://localhost:8000/api-auth/login/
       this.$store.commit('login', this.username);
 
     }
