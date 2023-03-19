@@ -10,88 +10,16 @@
 
     <v-spacer></v-spacer>
 
+    <v-btn variant="flat"
+      color="green" dark  size="small" to="/provedor-new" >
+        New
+    </v-btn>
 
-    <v-row justify="space-around">
-
-      <v-col cols="auto">
-        <v-dialog
-          transition="dialog-top-transition"
-          width="auto"
-          v-model="dialog_product"
-          scrollable
-        >
-          <template v-slot:activator="{ props }">
-
-            <v-btn variant="flat"
-              color="green" dark  size="small"  v-bind="props">
-                New
-            </v-btn>
-          </template>
-
-          <template v-slot:default="{ dialog_product }">
-            <v-card min-width=300>
-              <v-toolbar
-                color="primary"
-                title="Nuevo Producto"
-                dense
-              ></v-toolbar>
-              <v-card-text>
-              <v-text-field
-                name="name"
-                label="Nombre"
-                id="id"
-              ></v-text-field>
-              <v-text-field
-                name="precio"
-                label="Precio"
-                id="id"
-              ></v-text-field>
-              <v-text-field
-                name="provedor"
-                label="Provedor"
-                id="id"
-              ></v-text-field>
-
-              </v-card-text>
-              <v-card-actions class="justify-end">
-
-                <v-btn
-                  color="success"
-                  v-on:click="saveProduct"
-                >save</v-btn>
-                <v-btn
-                  variant="text"
-                  v-on:click="this.dialog_product = false"
-                >Close</v-btn>
-              </v-card-actions>
-            </v-card>
-          </template>
-        </v-dialog>
-      </v-col>
-    </v-row>
 
 
 
   </v-toolbar>
 
-
-  <v-card-text>
-   <v-autocomplete
-   label="Categoria"
-   :items="categorias"
-   chips
-   multiple
-   clearable
-
-   >
-
-   </v-autocomplete>
-   <v-text-field
-    name="name"
-    label="Nombre"
-    id="id"
-   ></v-text-field>
-  </v-card-text>
 
 
 
@@ -119,6 +47,9 @@
           <th class="text-left">
             Correo
           </th>
+          <th class="text-left">
+            Accion
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -134,6 +65,11 @@
           <td>{{ item.telefono }}</td>
           <td>{{ item.direccion }}</td>
           <td>{{ item.correo }}</td>
+          <td>
+            <v-icon size="small" color="primary" v-on:click="editar(item)">mdi-pencil</v-icon>
+            <v-icon size="small" color="red">mdi-delete</v-icon>
+
+          </td>
         </tr>
       </tbody>
     </v-table>
@@ -185,6 +121,12 @@
 
       console.log("Obteniendo");
     },
+
+    editar(item){
+      console.log("editando")
+      console.log(item.id);
+    },
+
     saveProduct(){
       this.dialog_product = false
       console.log("guardado");

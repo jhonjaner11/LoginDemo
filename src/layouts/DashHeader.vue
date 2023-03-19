@@ -55,6 +55,11 @@
         to: "/sale-record",
       },
       {
+        title: "Stock",
+        value: "stock",
+        to: "/stock-list",
+      },
+      {
         title: "Productos",
         value: "foo",
         to: "/product-list",

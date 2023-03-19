@@ -1,12 +1,12 @@
 <template>
   <v-container >
-    <StockList/>
+    <ProductsList/>
   </v-container>
 
 </template>
 
 <script >
-import StockList from '@/components/StockList.vue';
+import ProductsList from '@/components/ProductsList.vue';
   export default {
   data: () => ({
     drawer: false,
@@ -16,7 +16,7 @@ import StockList from '@/components/StockList.vue';
 
   }),
   components:{
-    StockList
+    ProductsList
   },
   }
 </script>

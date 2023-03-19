@@ -6,47 +6,20 @@
   <v-toolbar color="white" density="compact">
 
 
-    <v-toolbar-title>Productos</v-toolbar-title>
+    <v-toolbar-title>STOCK</v-toolbar-title>
 
     <v-spacer></v-spacer>
 
+    <v-btn variant="flat"
+      color="green" dark  size="small" to="/stock-new" >
+        New
+    </v-btn>
 
 
 
-    <v-btn color="success" variant="flat"
-     dark  size="small" to="/product-new" >NUEVO</v-btn>
 
   </v-toolbar>
 
-
-  <v-card-text>
-    <v-row>
-      <v-col colr="6">
-        <v-text-field
-        name="name"
-        label="Nombre"
-        id="id"
-       ></v-text-field>
-      </v-col>
-      <v-col cols="6">
-
-        <v-autocomplete
-        label="Categoria"
-        :items="categorias"
-        chips
-        multiple
-        clearable
-
-        >
-
-        </v-autocomplete>
-
-      </v-col>
-
-    </v-row>
-
-
-  </v-card-text>
 
 
 
@@ -54,33 +27,41 @@
       <thead>
         <tr>
           <th class="text-left">
-            Id
+            ID
           </th>
+          <th class="text-left">
+            Fecha
+          </th>
+
           <th class="text-left">
             Producto
           </th>
           <th class="text-left">
-            Provedor
+            Cantidad
           </th>
 
           <th class="text-left">
-            Valor Venta
+            Accion
           </th>
-
-
-
         </tr>
       </thead>
       <tbody>
         <tr
-          v-for="item in productos"
+          v-for="item in stock"
           :key="item.id"
         >
           <td>{{ item.id }}</td>
-          <td>{{ item.nombre }}</td>
-          <td>{{ item.provedor }}</td>
-          <td>${{ item.precio_venta }}</td>
+          <td>{{ item.fecha_creacion }}</td>
+          <td>{{ item.producto }}</td>
+          <td>{{ item.cantidad }}</td>
 
+
+
+          <td>
+            <v-icon size="small" color="primary" v-on:click="editar(item)">mdi-pencil</v-icon>
+            <v-icon size="small" color="red">mdi-delete</v-icon>
+
+          </td>
         </tr>
       </tbody>
     </v-table>
@@ -91,7 +72,6 @@
 
 </template>
 <script >
-  //import axios from 'axios';
   // import DefaultView from './View.vue';
   export default {
   data: () => ({
@@ -100,12 +80,7 @@
     group: null,
 
     categorias: ["Bebidas", "Paquetes", "Alimentos", "Dulces", "Cigarros"],
-    productos_old: [
-      {id:1, nombre: "Empanadas", precio: "2700", stock:20 , categoria:["Alimentos"],provedor:'Doña Gloria'},
-      {id:2, nombre: "Papas Limon", precio: "2700", stock:20, categoria:["Paquetes"],provedor:'Super' },
-      {id:3, nombre: "Coca Cola pet", precio: "1500", stock:20, categoria:["Bebidas"],provedor:'Postobon'}
-    ],
-    productos: []
+    stock: [],
 
 
 
@@ -117,16 +92,14 @@
     },
   },
   methods:{
-
-    getProducts(){
+    getStock(){
       let that =this;
 
-      this.axios.get('/producto/list')
+      this.axios.get('/producto/stock')
         .then(function (response) {
           // handle success
           response.data.forEach(element => {
-            that.productos.push(element)
-            console.log(element);
+            that.stock.push(element)
           });
 
         })
@@ -139,6 +112,11 @@
         });
 
       console.log("Obteniendo");
+    },
+
+    editar(item){
+      console.log("editando")
+      console.log(item.id);
     },
 
     saveProduct(){
@@ -173,13 +151,6 @@
       console.log(this.factura);
     }
   },
-
-  beforeMount() {
-    console.log('hola');
-    this.getProducts();
-
-    // <div id="app" data-fizz="buzz"></div>
-  },
   computed: {
 
     // totalVentas:function () {
@@ -190,6 +161,13 @@
     //   return total
 
     // }
-  }
+  },
+
+  beforeMount() {
+    console.log('hola');
+    this.getStock();
+
+    // <div id="app" data-fizz="buzz"></div>
+  },
 };
 </script>

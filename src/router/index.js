@@ -15,17 +15,38 @@ const routes = [
         component: () => import(/* webpackChunkName: "home" */ '@/views/HomeView.vue'),
       },
       {
-        path: 'product-list',
-        name: 'ListaProductos',
+        path: 'stock-new',
+        name: 'CrearStock',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import('@/components/NewStock.vue'),
+      },
+      {
+        path: 'stock-list',
+        name: 'ListaStock',
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "home" */ '@/views/StockView.vue'),
       },
       {
+        path: 'product-list',
+        name: 'ListaProductos',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import(/* webpackChunkName: "home" */ '@/views/ProductView.vue'),
+      },
+      {
         path: 'product-new',
         name: 'CrearProductos',
         component: () => import('@/components/NewProduct.vue'),
+      },
+      {
+        path: 'provedor-new',
+        name: 'CrearProvedor',
+        component: () => import('@/components/NewProvedor.vue'),
       },
       {
         path: 'about',
