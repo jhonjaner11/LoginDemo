@@ -193,7 +193,8 @@
       "precio_venta": this.precio_venta,
       "precio_compra": this.precio_compra,
       "activo": true,
-      "categoria": this.categoriaIds
+      "categoria": this.categoriaIds,
+      "cantidad": this.cantidad
       }
 
 

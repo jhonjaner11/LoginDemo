@@ -18,7 +18,7 @@
               <v-autocomplete
               label="Producto"
               :items=products
-              item-title="name"
+              item-title="producto"
               v-model="producto_registro"
               return-object
               clearable
@@ -27,8 +27,8 @@
                 <v-list-item
                   v-bind="props"
                   :prepend-avatar="item?.raw?.avatar"
-                  :title="item?.raw?.name"
-                  :subtitle="item?.raw?.precio"
+                  :title="item?.raw?.producto"
+                  :subtitle="item?.raw?.precio_producto"
 
                 ></v-list-item>
               </template>
@@ -117,7 +117,9 @@
     color="success"
     prepend-icon="mdi-archive"
     variant="tonal"
-    class="mx-auto">Registrar</v-btn>
+    class="mx-auto"
+    :onclick="registrarFactura"
+    >Registrar</v-btn>
 </v-card-actions>
 
 </v-card>
@@ -137,23 +139,7 @@
   data: () => ({
     drawer: false,
     group: null,
-    products: [
-      {
-        id:1,
-        name: 'Empanada de pollo',
-        precio: 3000
-      },
-      {
-        id:2,
-        name: 'papas',
-        precio: 2700
-      },
-      {
-        id:3,
-        name: 'Coca cola',
-        precio: 2000
-      },
-    ],
+    products: [],
     producto_registro: '',
     // producto_registro:{
     //   id:'',
@@ -196,7 +182,57 @@
       this.drawer = false;
     },
   },
+
+  beforeMount() {
+    this.getProducts();
+  },
+
   methods:{
+    registrarFactura(){
+      let that = this;
+      let facturaNew = {
+        "usuario": 1,
+        "total": this.totalFactura,
+        "descuento":0,
+        "ventas": this.factura
+      }
+      this.axios.post('/ventas/facturas', facturaNew)
+        .then(function (response) {
+          // handle success
+          that.factura = []
+
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+        .finally(function () {
+          that.factura = []
+        });
+    },
+    getProducts(){
+      let that =this;
+
+      this.axios.get('/producto/stock')
+        .then(function (response) {
+          // handle success
+          response.data.forEach(element => {
+            if (element.cantidad>0) {
+               that.products.push(element)
+            }
+
+            // console.log(element);
+          });
+
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+        .finally(function () {
+          // always executed
+        });
+    },
     submit(){
       console.log(this.venta)
     },
@@ -227,24 +263,23 @@
   },
   computed: {
     labelCantidadTotal: function(){
-      if(this.producto_registro.precio)
-        return "Precio unidad: $"+this.producto_registro.precio
+      let precio
+      if(this.producto_registro.precio_producto)
+        precio = this.producto_registro.precio_producto
       else
-        return ""
+        precio =  0
+
+      return  "Precio unidad: $"+precio
     },
     // a computed getter
     precioProductoTotal: function () {
-
+      console.log(this.producto_registro);
       this.venta.cantidad=  parseInt(this.venta.cantidad)
-      let total = parseInt(this.producto_registro.precio) * parseInt(this.venta.cantidad)
+      let total = parseInt(this.producto_registro.precio_producto) * parseInt(this.venta.cantidad)
       this.venta.total = total
-      this.venta.producto_precio = this.producto_registro.precio
-      this.venta.producto_id = this.producto_registro.id
-      this.venta.producto_nombre = this.producto_registro.name
-
-
-      // `this` points to the vm instance
-
+      this.venta.producto_precio = this.producto_registro.precio_producto
+      this.venta.producto_id = this.producto_registro.id_producto
+      this.venta.producto_nombre = this.producto_registro.producto
 
       return total
     },

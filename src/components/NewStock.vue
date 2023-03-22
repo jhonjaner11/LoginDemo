@@ -20,19 +20,46 @@
   <v-card-text>
 
   <v-autocomplete
-   label="Producto"
-   :items="productos"
-   item-title="nombre"
+    label="Producto"
+    :items="productos"
+    item-title="nombre"
     item-value="id"
     v-model="producto"
+
+    :onchange="getCantidadProducto(producto)"
+
   ></v-autocomplete>
 
+  <v-row>
+    <v-col cols="6">
+      <v-text-field
+        disabled
+        name="cantidad_actual"
+        label="Cantidad Actual"
+        v-model="cantidad_actual"
+      ></v-text-field>
+    </v-col>
+    <!-- #TODO -->
+    <!-- <v-col cols="2" >
 
-  <v-text-field
-    name="cantidad"
-    label="Cantidad"
-    v-model="cantidad"
-  ></v-text-field>
+      <v-icon size="x-large" right>mdi-arrow-right-bold</v-icon>
+      <v-btn
+        class="ma-2"
+        variant="text"
+        icon="mmdi-arrow-right-bold"
+        color="blue-lighten-2"
+      ></v-btn>
+    </v-col> -->
+    <v-col cols="6">
+      <v-text-field
+      name="cantidad"
+      label="Cantidad Nueva"
+      v-model="cantidad"
+      ></v-text-field>
+    </v-col>
+  </v-row>
+
+
 
   </v-card-text>
 
@@ -68,6 +95,8 @@
     provedores:[],
     categorias: [],
 
+    producto: '',
+
     nombre: '',
     provedor : '',
     precio_compra:'',
@@ -75,6 +104,7 @@
     activo : true,
     categoria : [],
     cantidad: '',
+    cantidad_actual: ''
 
 
 
@@ -86,6 +116,35 @@
     },
   },
   methods:{
+    Alertar: function (message, event) {
+    // ahora tenemos acceso al evento nativo.
+    if (event) event.preventDefault()
+    // alert(message)
+    console.log(event);
+    },
+    getCantidadProducto(id){
+      let that =this;
+
+      if (id) {
+
+
+        this.axios.get('/producto/stock/'+ id)
+          .then(function (response) {
+            // handle success
+            response.data.forEach(element => {
+              that.cantidad_actual = element.cantidad;
+            });
+
+          })
+          .catch(function (error) {
+            // handle error
+            console.log(error);
+          })
+          .finally(function () {
+            // always executed
+          });
+      }
+    },
 
     getProducts(){
       let that =this;
