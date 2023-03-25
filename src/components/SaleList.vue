@@ -4,7 +4,7 @@
 
 <v-card>
   <v-card-title primary-title>
-    Ventas
+    Facturas
   </v-card-title>
 
 

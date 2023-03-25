@@ -5,6 +5,7 @@
 
   <v-card>
     <v-card-title primary-title>
+      <v-icon @Click="$router.go(-1)">mdi-arrow-left-circle</v-icon>
       Factura N {{parametro}}
     </v-card-title>
 
@@ -54,6 +55,7 @@
 </template>
 <script >
   // import DefaultView from './View.vue';
+  import router from "../router/index";
   export default {
   name: 'VentaDetalle',
   props: ['factura_id'],

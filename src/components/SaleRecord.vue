@@ -99,7 +99,8 @@
       <td>
         {{ item.total }}
         <v-icon size="small" icon="mdi-pencil"></v-icon>
-        <v-icon size="small"  color="red" icon="mdi-delete"></v-icon>
+        <v-icon size="small"  color="red" icon="mdi-delete"
+        @click="eliminarProducto(item)"></v-icon>
       </td>
 
     </tr>
@@ -150,9 +151,9 @@
     venta:{
           producto_id: '',
           producto_nombre: '',
-          producto_precio: 0,
-          cantidad: 0,
-          total: 0
+          producto_precio: '',
+          cantidad: '',
+          total: ''
           },
 
     factura : [],
@@ -247,19 +248,44 @@
     },
 
     agregarProductoFactura(){
-      console.log("agregando:")
-      console.log(this.venta);
-      this.factura.push(this.venta)
-      this.venta={
-          producto_id: '',
-          producto_nombre: '',
-          producto_precio: 0,
-          cantidad: 0,
-          total: 0
-          },
+      let repetido = false
+      if (this.venta.cantidad>0){
 
-      console.log(this.factura);
-    }
+        this.factura.forEach(element => {
+
+          if (element.producto_id ==this.venta.producto_id) {
+
+            element.cantidad += this.venta.cantidad
+            element.total =  element.cantidad * element.producto_precio
+            repetido = true
+          }
+
+
+        });
+
+
+
+        if (!repetido){
+          this.factura.push(this.venta)
+        }
+
+        this.venta={
+              producto_id: '',
+              producto_nombre: '',
+              producto_precio: '',
+              cantidad: '',
+              total: ''
+              },
+          this.producto_registro=''
+
+      }
+    },
+
+    eliminarProducto(item){
+      console.log("eliminar");
+
+      this.factura.splice(this.factura.indexOf(item), 1)
+    },
   },
   computed: {
     labelCantidadTotal: function(){
@@ -273,7 +299,7 @@
     },
     // a computed getter
     precioProductoTotal: function () {
-      console.log(this.producto_registro);
+
       this.venta.cantidad=  parseInt(this.venta.cantidad)
       let total = parseInt(this.producto_registro.precio_producto) * parseInt(this.venta.cantidad)
       this.venta.total = total

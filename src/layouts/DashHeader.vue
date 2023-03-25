@@ -23,9 +23,9 @@
           :to="item.to"
           router
         >
-          <!-- <template v-slot:prepend>
-            <v-icon :icon="item.icon"></v-icon>
-          </template> -->
+          <template v-slot:prepend>
+            <v-icon :icon="item.icon" :color="item.color"></v-icon>
+          </template>
           <v-list-item-title v-text="item.title"></v-list-item-title>
         </v-list-item>
       </v-list>
@@ -48,36 +48,44 @@
         title: "Home",
         value: "foo",
         to: "/",
+        icon: "mdi-home",
       },
       {
         title: "Registrar Venta",
         value: "sales",
         to: "/sale-record",
+        icon: "mdi-cash-register",
+        color: 'green'
       },
       {
         title: "Stock",
         value: "stock",
         to: "/stock-list",
+        icon: "mdi-package-variant",
       },
       {
         title: "Productos",
         value: "foo",
         to: "/product-list",
+        icon: "mdi-food",
       },
       {
         title: "Provedores",
         value: "foo",
         to: "/provedor-list",
+        icon: "mdi-account-tie",
       },
       {
-        title: "Ventas",
+        title: "Facturas",
         value: "sales",
         to: "/sales",
+        icon: "mdi-cash",
       },
       {
         title: "Reportes",
         value: "foo",
         to: "/reports",
+        icon: "mdi-chart-line",
       },
 
 
@@ -85,6 +93,7 @@
         title: "Usuarios",
         value: "users",
         to: "/users",
+        icon: "mdi-clipboard-account",
       },
 
 
@@ -92,6 +101,7 @@
         title: "About",
         value: "bar",
         to: "/about",
+        icon: "mdi-fire",
       },
     ],
   }),
