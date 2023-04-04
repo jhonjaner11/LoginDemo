@@ -104,8 +104,8 @@
     activo : true,
     categoria : [],
     cantidad: '',
-    cantidad_actual: ''
-
+    cantidad_actual: '',
+    nuevo: true,
 
 
   }),
@@ -116,12 +116,7 @@
     },
   },
   methods:{
-    Alertar: function (message, event) {
-    // ahora tenemos acceso al evento nativo.
-    if (event) event.preventDefault()
-    // alert(message)
-    console.log(event);
-    },
+
     getCantidadProducto(id){
       let that =this;
 
@@ -131,9 +126,16 @@
         this.axios.get('/producto/stock/'+ id)
           .then(function (response) {
             // handle success
-            response.data.forEach(element => {
-              that.cantidad_actual = element.cantidad;
-            });
+            console.log(response.data);
+            if (response.data!='') {
+              console.log("entrando");
+              that.cantidad_actual = response.data[0].cantidad,
+              that.nuevo= false
+            }else{
+              that.cantidad_actual = 0
+              that.nuevo= true
+            }
+
 
           })
           .catch(function (error) {
@@ -154,7 +156,7 @@
           // handle success
           response.data.forEach(element => {
             that.productos.push(element)
-            console.log(element);
+
           });
 
         })
@@ -214,15 +216,18 @@
     },
 
     crearProducto(){
-      let data= {
-      "nombre": this.nombre,
-      "provedor": this.provedor,
-      "precio_venta": this.precio_venta,
-      "precio_compra": this.precio_compra,
-      "activo": true,
-      "categoria": this.categoriaIds
+
+
+
+      let data = {
+        "id_producto":this.producto,
+        "cantidad": this.cantidad,
+        "punto":1,
       }
 
+      let producto_id = this.producto
+      let nuevo_ = this.nuevo
+      console.log("nuevo"+nuevo_);
 
       Swal.fire({
         title: 'Desea crear el producto?',
@@ -233,21 +238,42 @@
         confirmButtonText: 'Registrar'
       }).then((result) => {
         if (result.isConfirmed) {
-          this.axios.post('/producto/list', data)
-        .then(function (response) {
-          Swal.fire(
-            'Producto creado!',
-          )
-          router.push('/product-list')
 
-        })
-        .catch(function (error) {
-          // handle error
-          console.log(error);
-        })
-        .finally(function () {
-          // always executed
-        });
+          if (nuevo_) {
+            this.axios.post('/producto/stock/', data)
+            .then(function (response) {
+              Swal.fire(
+                'Stock creado!',
+              )
+              router.push('/stock-list')
+
+            })
+            .catch(function (error) {
+              // handle error
+              console.log(error);
+            })
+            .finally(function () {
+              // always executed
+            });
+          }else{
+            this.axios.put('/producto/stock/'+producto_id, data)
+            .then(function (response) {
+              Swal.fire(
+                'Producto modificado!',
+              )
+              router.push('/stock-list')
+
+            })
+            .catch(function (error) {
+              // handle error
+              console.log(error);
+            })
+            .finally(function () {
+              // always executed
+            });
+
+          }
+
 
         }
       })

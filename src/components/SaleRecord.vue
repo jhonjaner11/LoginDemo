@@ -39,11 +39,12 @@
             <v-text-field
             label="Cantidad"
             :model-value="range[0]"
-            :rules="[() => !!venta.cantidad || 'This field is required']"
+            :rules="[() => !!venta.cantidad  || 'This field is resquired', () => venta.cantidad <= producto_registro.cantidad || 'No hay Stock']"
             v-model="venta.cantidad"
             ref="venta.cantidad"
             min=1
             type="number"
+            max=10
 
             ></v-text-field>
           </v-col>
@@ -58,7 +59,9 @@
 
             > </v-text-field>
           </v-col>
-
+          <v-col>Cantidad Maxima del Producto: {{producto_registro.cantidad}}</v-col>
+        </v-row>
+        <v-row>
           <v-col cols="12" sm="12" xs="12" md="4" lg="4">
             <v-btn color="success" :onclick="agregarProductoFactura">Agregar</v-btn>
           </v-col>
@@ -142,6 +145,7 @@
     group: null,
     products: [],
     producto_registro: '',
+    cantidadMaxima: 0,
     // producto_registro:{
     //   id:'',
     //   nombre:'',
@@ -214,7 +218,7 @@
     getProducts(){
       let that =this;
 
-      this.axios.get('/producto/stock')
+      this.axios.get('/producto/stock/')
         .then(function (response) {
           // handle success
           response.data.forEach(element => {
@@ -249,7 +253,8 @@
 
     agregarProductoFactura(){
       let repetido = false
-      if (this.venta.cantidad>0){
+
+      if ((this.venta.cantidad>0) && (this.venta.cantidad<=this.producto_registro.cantidad)){
 
         this.factura.forEach(element => {
 

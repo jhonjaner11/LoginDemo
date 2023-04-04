@@ -361,7 +361,7 @@ export default {
     getInformeStock(){
       let that =this;
 
-      this.axios.get('/producto/stock/last')
+      this.axios.get('/ventas/informe/stock/')
         .then(function (response) {
           // handle success
           console.log(response.data);

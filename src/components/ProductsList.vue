@@ -126,7 +126,6 @@
           // handle success
           response.data.forEach(element => {
             that.productos.push(element)
-            console.log(element);
           });
 
         })
@@ -138,29 +137,25 @@
           // always executed
         });
 
-      console.log("Obteniendo");
+
     },
 
     saveProduct(){
       this.dialog_product = false
-      console.log("guardado");
+
     },
     submit(){
-      console.log(this.venta)
+
     },
     crearVentaProducto(){
-      console.log("CON")
-      console.log(producto_registro)
+
     },
     LlenarRegistro(item){
-      console.log("LlenaR")
-      console.log(item);
-      console.log(this.producto_registro)
+
     },
 
     agregarProductoFactura(){
-      console.log("agregando:")
-      console.log(this.venta);
+
       this.factura.push(this.venta)
       this.venta={
           producto_id: '',
@@ -168,17 +163,14 @@
           producto_precio: 0,
           cantidad: 0,
           total: 0
-          },
+          }
 
-      console.log(this.factura);
     }
   },
 
   beforeMount() {
-    console.log('hola');
     this.getProducts();
 
-    // <div id="app" data-fizz="buzz"></div>
   },
   computed: {
 
