@@ -28,14 +28,14 @@
             v-model="username"
            ></v-text-field>
            <v-text-field
-           :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+           :append-inner-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
            prepend-icon="mdi-lock"
            :rules="[rules.required, rules.min]"
            :type="show1 ? 'text' : 'password'"
            name="password"
            label="Contraseña"
            id="password"
-           @click:append="show1 = !show1"
+           @click:append-inner="show1 = !show1"
 
            v-model="password"
 

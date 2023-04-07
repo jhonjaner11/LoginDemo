@@ -76,6 +76,12 @@
         icon: "mdi-account-tie",
       },
       {
+        title: "Entregas",
+        value: "foo",
+        to: "/delivery",
+        icon: "mdi-account-tie",
+      },
+      {
         title: "Facturas",
         value: "sales",
         to: "/sales",
