@@ -109,7 +109,7 @@
     provedor_id:'',
     telefono:'',
     direccion : '',
-    correo : [],
+    correo : '',
     pagina_web: '',
 
 

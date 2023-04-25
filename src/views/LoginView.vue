@@ -88,11 +88,11 @@ export default {
         username : this.username,
         password: this.password,
       }
-      console.log("loggeando");
-      axios.post('http://localhost:8000/api-auth/login/', data)
+      let that = this
+
+      axios.post('/users/login', data)
         .then(function (response) {
-          // handle success
-          console.log(response);
+          that.$store.commit('login', response.data);
         })
         .catch(function (error) {
           // handle error
@@ -101,8 +101,7 @@ export default {
         .finally(function () {
           // always executed
         });
-      // http://localhost:8000/api-auth/login/
-      this.$store.commit('login', this.username);
+
 
     }
   },

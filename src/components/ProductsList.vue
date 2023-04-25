@@ -6,7 +6,9 @@
   <v-toolbar color="white" density="compact">
 
 
-    <v-toolbar-title>Productos</v-toolbar-title>
+    <v-toolbar-title>Productos
+    <v-btn color="success"
+     dark  size="small" to="/categories" >categorias</v-btn></v-toolbar-title>
 
     <v-spacer></v-spacer>
 

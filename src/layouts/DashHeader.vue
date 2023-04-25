@@ -70,6 +70,12 @@
         icon: "mdi-food",
       },
       {
+        title: "Categorias",
+        value: "foo",
+        to: "/categories",
+        icon: "mdi-shape",
+      },
+      {
         title: "Provedores",
         value: "foo",
         to: "/provedor-list",

@@ -73,6 +73,11 @@ const routes = [
         component: () => import(/* webpackChunkName: "home" */ '@/views/UserView.vue'),
       },
       {
+        path: 'user-detail',
+        name: 'UserDetalle',
+        component: () => import('@/components/UserDetail.vue'),
+      },
+      {
         //ventas
         path: 'sales',
         name: 'Facturas',
@@ -119,6 +124,15 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "home" */ '@/views/ReportsView.vue'),
+      },
+      {
+        //ventas
+        path: 'categories',
+        name: 'Categorias',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import(/* webpackChunkName: "home" */ '@/views/CategoriesView.vue'),
       },
     ]
   },
