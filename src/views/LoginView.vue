@@ -90,7 +90,7 @@ export default {
       }
       let that = this
 
-      axios.post('/users/login', data)
+      axios.post('/user/login', data)
         .then(function (response) {
           that.$store.commit('login', response.data);
         })

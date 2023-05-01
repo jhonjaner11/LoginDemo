@@ -194,9 +194,13 @@
 
   methods:{
     registrarFactura(){
+
+      // console.log("hola");
+      // console.log(this.$store.state.id);
+      // return
       let that = this;
       let facturaNew = {
-        "usuario": 1,
+        "usuario": this.$store.state.id,
         "total": this.totalFactura,
         "descuento":0,
         "ventas": this.factura

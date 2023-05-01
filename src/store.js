@@ -5,8 +5,8 @@ const store = createStore( {
   state:{
     username:"",
     name: "",
-    cargo: "",
-    id: ""
+    id: "",
+    rol: ""
   },
 
   getters:{},
@@ -17,11 +17,23 @@ const store = createStore( {
       state.username= data.username;
       state.name = data.name;
       state.id = data.id;
+      state.rol = data.rol
 
       localStorage.setItem('username',data.username);
       localStorage.setItem('name',data.name);
       localStorage.setItem('id',data.id);
-      router.push('/')
+      localStorage.setItem('rol',data.rol);
+      console.log("mutation");
+      console.log(data.rol);
+
+      if (data.rol=='Cajero') {
+
+        router.push('/sale-record')
+      }else{
+        router.push('/')
+      }
+
+
     },
 
     logout(state){
@@ -39,6 +51,9 @@ const store = createStore( {
       }
       if(localStorage.getItem('id')){
         state.id = localStorage.getItem('id');
+      }
+      if(localStorage.getItem('rol')){
+        state.rol = localStorage.getItem('rol');
       }
     }
 

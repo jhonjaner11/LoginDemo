@@ -15,6 +15,10 @@
 
     <v-navigation-drawer v-model="drawer">
       <v-list density="compact">
+
+
+
+
         <v-list-item
           v-for="(item, i) in items"
           :key="i"
@@ -28,6 +32,32 @@
           </template>
           <v-list-item-title v-text="item.title"></v-list-item-title>
         </v-list-item>
+
+        <template v-if="$store.state.rol=='Admin'">
+          <div>
+            <v-list-group value="Admin">
+              <template v-slot:activator="{ props }">
+                <v-list-item
+                  v-bind="props"
+                  title="Admin"
+                ></v-list-item>
+              </template>
+
+              <v-list-item
+
+
+                v-for="(item, i) in admin"
+                :key="i"
+                :value="item.title"
+                :title="item.title"
+                :prepend-icon="item.icon"
+                :to="item.to"
+              ></v-list-item>
+            </v-list-group>
+          </div>
+        </template>
+
+
       </v-list>
     </v-navigation-drawer>
 
@@ -43,20 +73,14 @@
   data: () => ({
     drawer: false,
     group: null,
-    items: [
-      {
-        title: "Home",
-        value: "foo",
-        to: "/",
-        icon: "mdi-home",
-      },
-      {
-        title: "Registrar Venta",
-        value: "sales",
-        to: "/sale-record",
-        icon: "mdi-cash-register",
-        color: 'green'
-      },
+    admin2: [
+        ['Create', 'mdi-plus-outline'],
+        ['Read', 'mdi-file-outline'],
+        ['Update', 'mdi-update'],
+        ['Delete', 'mdi-delete'],
+      ],
+
+    admin: [
       {
         title: "Stock",
         value: "stock",
@@ -116,6 +140,25 @@
         icon: "mdi-fire",
       },
     ],
+
+    items: [
+      {
+        title: "Home",
+        value: "foo",
+        to: "/",
+        icon: "mdi-home",
+      },
+      {
+        title: "Registrar Venta",
+        value: "sales",
+        to: "/sale-record",
+        icon: "mdi-cash-register",
+        color: 'green'
+      },
+
+
+
+    ],
   }),
 
   watch: {
@@ -123,5 +166,21 @@
       this.drawer = false;
     },
   },
+
+  beforeMount() {
+
+    this.getPermisos();
+
+
+  // <div id="app" data-fizz="buzz"></div>
+  },
+  methods: {
+    getPermisos(){
+      console.log("usuario");
+      console.log(this.$store.state.rol);
+
+    }
+  },
+
 };
 </script>
